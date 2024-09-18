@@ -1,0 +1,14 @@
+{
+  "name": "password-generator-cli",
+  "version": "1.0.0",
+  "description": "A CLI to generate random passwords.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "password-generator-cli": "./index.js"
+  },
+  "author": "Adewale Gbadamosi",
+  "license": "MIT"
+}
