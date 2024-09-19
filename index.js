@@ -10,6 +10,11 @@ const LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz";
 function generatePassword(length = DEFAULT_LENGTH) {
   let chars = LOWERCASE_CHARS;
 
+  // Add optional character sets
+  if (includeNumbers) chars += "0123456789";
+  if (includeUppercase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  if (includeSymbols) chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
   // Generate random password
   let password = "";
   for (let i = 0; i < length; i++) {
@@ -21,8 +26,11 @@ function generatePassword(length = DEFAULT_LENGTH) {
 
 // Parse command-line arguments
 const args = process.argv.slice(2);
-const helpFlag = args.includes("--help");
+const helpFlag = args.includes("--help") || args.includes("-h");
 const lengthFlagIndex = args.indexOf("--length");
+const includeNumbers = args.includes("--numbers");
+const includeUppercase = args.includes("--uppercase");
+const includeSymbols = args.includes("--symbols");
 
 // Display help message
 if (helpFlag) {
@@ -31,6 +39,9 @@ if (helpFlag) {
     Options:
       --help       Show help message
       --length     Specify password length (default: 8)
+      --numbers    Include numbers in the password
+      --uppercase  Include uppercase letters in the password
+      --symbols    Include symbols in the password
     `);
   process.exit(0);
 }
@@ -46,5 +57,10 @@ if (lengthFlagIndex !== -1 && args[lengthFlagIndex + 1]) {
 }
 
 // Generate and display the password
-const password = generatePassword(length);
+const password = generatePassword(
+  length,
+  includeNumbers,
+  includeUppercase,
+  includeSymbols
+);
 console.log(`Generated password: ${password}`);
